@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI Universe — Everything About Artificial Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060608;
+  --s1:#0e0e12;
+  --s2:#16161c;
+  --s3:#1e1e26;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --text:#eeeef2;
+  --muted:#7a7a8c;
+  --dim:#4a4a5a;
+  --accent:#6c63ff;
+  --accent2:#00d4aa;
+  --accent3:#ff6b6b;
+  --font:'Space Grotesk',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(6,6,8,0.92);backdrop-filter:blur(20px);z-index:100}
+.nav-logo{font-size:20px;font-weight:700;letter-spacing:-0.5px;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:0.3px;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{font-size:12px;padding:8px 20px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:500;letter-spacing:0.3px;transition:opacity 0.2s}
+.nav-cta:hover{opacity:0.85}
+
+/* HERO */
+.hero{padding:120px 48px 80px;max-width:900px;margin:0 auto;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-family:var(--mono);color:var(--accent2);border:1px solid rgba(0,212,170,0.2);padding:6px 14px;border-radius:20px;margin-bottom:32px;letter-spacing:1px}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;line-height:1.08;letter-spacing:-2px;margin-bottom:24px}
+.hero h1 .grad{background:linear-gradient(135deg,#fff 30%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:17px;color:var(--muted);max-width:560px;margin:0 auto 48px;line-height:1.8}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:600px;margin:0 auto}
+.stat{background:var(--s1);padding:24px;text-align:center}
+.stat-num{font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--text)}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
+
+/* SECTION */
+section{max-width:1100px;margin:0 auto;padding:80px 48px}
+.section-label{font-size:11px;font-family:var(--mono);color:var(--accent);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase}
+.section-title{font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-1px;margin-bottom:16px;line-height:1.2}
+.section-sub{font-size:15px;color:var(--muted);max-width:540px;margin-bottom:48px;line-height:1.8}
+hr.divider{border:none;border-top:1px solid var(--border);margin:0 48px}
+
+/* WHAT IS AI */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.prose p{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:16px}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--text);font-weight:500}
+.code-block{background:var(--s2);border:1px solid var(--border2);border-radius:12px;overflow:hidden}
+.code-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.code-dot{width:10px;height:10px;border-radius:50%}
+.code-body{padding:20px;font-family:var(--mono);font-size:12px;line-height:1.8;color:#a8b5d8}
+.code-body .kw{color:#c792ea}
+.code-body .fn{color:#82aaff}
+.code-body .str{color:#c3e88d}
+.code-body .cm{color:#546e7a}
+.code-body .num{color:#f78c6c}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:36px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-29px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--s3);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center}
+.tl-dot.active{background:var(--accent)}
+.tl-year{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:4px;letter-spacing:1px}
+.tl-title{font-size:15px;font-weight:500;margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* TYPES GRID */
+.types-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.type-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color 0.2s}
+.type-card:hover{border-color:var(--border2)}
+.type-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
+.type-card h3{font-size:15px;font-weight:600;margin-bottom:8px;letter-spacing:-0.3px}
+.type-card p{font-size:13px;color:var(--muted);line-height:1.7}
+.type-tag{display:inline-block;font-size:10px;font-family:var(--mono);padding:3px 8px;border-radius:4px;margin-top:12px;letter-spacing:0.5px}
+
+/* AI MODELS TABLE */
+.models-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.model-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px}
+.model-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.model-maker{font-size:11px;font-family:var(--mono);color:var(--muted);margin-bottom:12px}
+.model-bar-wrap{margin-bottom:8px}
+.model-bar-label{font-size:11px;color:var(--dim);margin-bottom:4px;display:flex;justify-content:space-between}
+.model-bar{height:4px;background:var(--s3);border-radius:2px;overflow:hidden}
+.model-bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
+
+/* USE CASES */
+.use-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.use-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:all 0.2s;cursor:default}
+.use-card:hover{background:var(--s2);border-color:var(--border2)}
+.use-icon{font-size:24px;margin-bottom:10px;display:block}
+.use-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.use-desc{font-size:11px;color:var(--muted)}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;position:relative}
+.step{padding:28px;border:1px solid var(--border);margin-right:-1px;margin-bottom:-1px;background:var(--s1)}
+.step:first-child{border-radius:16px 0 0 16px}
+.step:last-child{border-radius:0 16px 16px 0;margin-right:0}
+.step-num{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:12px}
+.step-title{font-size:14px;font-weight:600;margin-bottom:8px}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* FUTURE */
+.future-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.future-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:28px}
+.future-card.highlight{border-color:rgba(108,99,255,0.3);background:rgba(108,99,255,0.05)}
+.future-card h3{font-size:16px;font-weight:600;margin-bottom:10px;letter-spacing:-0.3px}
+.future-card p{font-size:13px;color:var(--muted);line-height:1.75}
+.future-badge{display:inline-block;font-size:10px;font-family:var(--mono);padding:3px 10px;border-radius:20px;margin-bottom:14px;letter-spacing:0.5px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px 48px;text-align:center}
+footer p{font-size:13px;color:var(--dim)}
+footer span{color:var(--accent)}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .hero{padding:80px 20px 60px}
+  section{padding:60px 20px}
+  .two-col,.future-grid{grid-template-columns:1fr}
+  .step:first-child,.step:last-child{border-radius:0}
+  hr.divider{margin:0 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">ai<span>.</span>universe</div>
+  <div class="nav-links">
+    <a href="#what">What is AI</a>
+    <a href="#history">History</a>
+    <a href="#types">Types</a>
+    <a href="#models">Models</a>
+    <a href="#uses">Use Cases</a>
+    <a href="#future">Future</a>
+  </div>
+  <a class="nav-cta" href="#what">Explore →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">ARTIFICIAL INTELLIGENCE EXPLAINED</div>
+  <h1><span class="grad">Everything you need<br>to know about AI</span></h1>
+  <p>From the fundamentals of machine learning to the future of AGI — your complete guide to artificial intelligence.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">$1.8T</div>
+      <div class="stat-label">market by 2030</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">700M+</div>
+      <div class="stat-label">AI users worldwide</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">300%</div>
+      <div class="stat-label">growth since 2020</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- WHAT IS AI -->
+<section id="what">
+  <div class="section-label">01 — fundamentals</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title">What is Artificial Intelligence?</h2>
+      <div class="prose">
+        <p>Artificial Intelligence is the science of making machines that can <strong>think, learn, and make decisions</strong> — tasks that normally require human intelligence.</p>
+        <p>At its core, AI systems are trained on massive amounts of data. They find patterns, build internal models of the world, and use those models to make predictions or take actions on new, unseen data.</p>
+        <p>Modern AI is powered by <strong>neural networks</strong> — mathematical structures loosely inspired by the human brain, with millions or billions of tunable parameters that adjust during training.</p>
+        <p>The result: systems that can write code, generate images, translate languages, diagnose diseases, and hold conversations — all from learning patterns in data.</p>
+      </div>
+    </div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dot" style="background:#ff5f57"></div>
+        <div class="code-dot" style="background:#ffbd2e"></div>
+        <div class="code-dot" style="background:#28c840"></div>
+        <span style="font-size:12px;color:var(--muted);margin-left:8px;font-family:var(--mono)">neural_network.py</span>
+      </div>
+      <div class="code-body">
+<span class="kw">import</span> torch<br>
+<span class="kw">import</span> torch.nn <span class="kw">as</span> nn<br><br>
+<span class="kw">class</span> <span class="fn">SimpleAI</span>(nn.Module):<br>
+&nbsp;&nbsp;<span class="kw">def</span> <span class="fn">__init__</span>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;super().<span class="fn">__init__</span>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.brain = nn.<span class="fn">Sequential</span>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.<span class="fn">Linear</span>(<span class="num">784</span>, <span class="num">256</span>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.<span class="fn">ReLU</span>(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nn.<span class="fn">Linear</span>(<span class="num">256</span>, <span class="num">10</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br><br>
+&nbsp;&nbsp;<span class="kw">def</span> <span class="fn">forward</span>(self, x):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> self.<span class="fn">brain</span>(x)<br><br>
+<span class="cm"># Train the model on data</span><br>
+model = <span class="fn">SimpleAI</span>()<br>
+optimizer = torch.optim.<span class="fn">Adam</span>(<br>
+&nbsp;&nbsp;model.<span class="fn">parameters</span>(), lr=<span class="num">0.001</span><br>
+)
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="section-label">02 — history</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title">How we got here</h2>
+      <p class="section-sub">70+ years of breakthroughs, failures, and revivals — the story of AI.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1950</div>
+        <div class="tl-title">Turing Test proposed</div>
+        <div class="tl-desc">Alan Turing asks "Can machines think?" and proposes a test for machine intelligence.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1956</div>
+        <div class="tl-title">AI coined as a field</div>
+        <div class="tl-desc">John McCarthy coins "Artificial Intelligence" at the Dartmouth Conference.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1997</div>
+        <div class="tl-title">Deep Blue beats Kasparov</div>
+        <div class="tl-desc">IBM's chess AI defeats the world champion, a watershed moment for symbolic AI.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2012</div>
+        <div class="tl-title">Deep learning explosion</div>
+        <div class="tl-desc">AlexNet wins ImageNet by a huge margin — deep neural networks take over.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2017</div>
+        <div class="tl-title">Transformers invented</div>
+        <div class="tl-desc">Google's "Attention Is All You Need" paper invents the architecture behind all modern LLMs.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-year">2022–now</div>
+        <div class="tl-title">The generative AI era</div>
+        <div class="tl-desc">ChatGPT, Claude, Gemini, Midjourney — AI becomes mainstream and reshapes every industry.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- TYPES -->
+<section id="types">
+  <div class="section-label">03 — types of AI</div>
+  <h2 class="section-title">The AI landscape</h2>
+  <p class="section-sub">AI is not one thing — it's a family of different approaches, each solving different kinds of problems.</p>
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(108,99,255,0.1)">🧠</div>
+      <h3>Machine Learning</h3>
+      <p>Systems that learn from data without being explicitly programmed. They find patterns and improve with experience.</p>
+      <span class="type-tag" style="background:rgba(108,99,255,0.1);color:#9b8dfb">Supervised / Unsupervised</span>
+    </div>
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(0,212,170,0.1)">🔗</div>
+      <h3>Deep Learning</h3>
+      <p>Neural networks with many layers that can learn highly complex representations — the engine behind modern AI.</p>
+      <span class="type-tag" style="background:rgba(0,212,170,0.1);color:#00d4aa">Neural Networks</span>
+    </div>
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(255,107,107,0.1)">💬</div>
+      <h3>Large Language Models</h3>
+      <p>Trained on trillions of words, these models understand and generate human language with remarkable fluency.</p>
+      <span class="type-tag" style="background:rgba(255,107,107,0.1);color:#ff6b6b">GPT / Claude / Gemini</span>
+    </div>
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(255,189,46,0.1)">🎮</div>
+      <h3>Reinforcement Learning</h3>
+      <p>AI learns by trial and error, receiving rewards for good actions. Used for games, robotics, and decision-making.</p>
+      <span class="type-tag" style="background:rgba(255,189,46,0.1);color:#ffbd2e">AlphaGo / OpenAI Five</span>
+    </div>
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(108,99,255,0.1)">🎨</div>
+      <h3>Generative AI</h3>
+      <p>Creates new content — text, images, audio, video, code — by learning the distribution of training data.</p>
+      <span class="type-tag" style="background:rgba(108,99,255,0.1);color:#9b8dfb">Diffusion / Transformers</span>
+    </div>
+    <div class="type-card">
+      <div class="type-icon" style="background:rgba(0,212,170,0.1)">🤖</div>
+      <h3>AI Agents</h3>
+      <p>Autonomous systems that perceive their environment, plan, and take multi-step actions to achieve goals.</p>
+      <span class="type-tag" style="background:rgba(0,212,170,0.1);color:#00d4aa">Agentic AI</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- MODELS -->
+<section id="models">
+  <div class="section-label">04 — leading models</div>
+  <h2 class="section-title">Today's top AI models</h2>
+  <p class="section-sub">The models shaping the world right now — compared across key capabilities.</p>
+  <div class="models-grid">
+    <div class="model-card">
+      <div class="model-name">GPT-4o</div>
+      <div class="model-maker">OpenAI</div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Reasoning</span><span>94%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:94%;background:#10a37f"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Coding</span><span>91%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:91%;background:#10a37f"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Multimodal</span><span>96%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:96%;background:#10a37f"></div></div>
+      </div>
+    </div>
+    <div class="model-card">
+      <div class="model-name">Claude 3.5</div>
+      <div class="model-maker">Anthropic</div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Reasoning</span><span>96%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:96%;background:#7c6dfa"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Coding</span><span>95%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:95%;background:#7c6dfa"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Safety</span><span>98%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:98%;background:#7c6dfa"></div></div>
+      </div>
+    </div>
+    <div class="model-card">
+      <div class="model-name">Gemini Ultra</div>
+      <div class="model-maker">Google DeepMind</div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Reasoning</span><span>90%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:90%;background:#4285f4"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Multimodal</span><span>95%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:95%;background:#4285f4"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Speed</span><span>92%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:92%;background:#4285f4"></div></div>
+      </div>
+    </div>
+    <div class="model-card">
+      <div class="model-name">Llama 3</div>
+      <div class="model-maker">Meta AI (Open Source)</div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Reasoning</span><span>85%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:85%;background:#0668e1"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Open source</span><span>100%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:100%;background:#0668e1"></div></div>
+      </div>
+      <div class="model-bar-wrap">
+        <div class="model-bar-label"><span>Efficiency</span><span>88%</span></div>
+        <div class="model-bar"><div class="model-bar-fill" style="width:88%;background:#0668e1"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- USE CASES -->
+<section id="uses">
+  <div class="section-label">05 — use cases</div>
+  <h2 class="section-title">Where AI is used today</h2>
+  <p class="section-sub">AI is already embedded in every industry — here's how.</p>
+  <div class="use-grid">
+    <div class="use-card">
+      <span class="use-icon">⚕️</span>
+      <div class="use-title">Healthcare</div>
+      <div class="use-desc">Disease diagnosis, drug discovery, medical imaging</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">💰</span>
+      <div class="use-title">Finance</div>
+      <div class="use-desc">Fraud detection, trading, credit scoring</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🚗</span>
+      <div class="use-title">Autonomous Vehicles</div>
+      <div class="use-desc">Self-driving, obstacle detection, routing</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🎓</span>
+      <div class="use-title">Education</div>
+      <div class="use-desc">Personalized tutoring, grading, content generation</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🛒</span>
+      <div class="use-title">E-commerce</div>
+      <div class="use-desc">Recommendations, search, customer service</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🔒</span>
+      <div class="use-title">Cybersecurity</div>
+      <div class="use-desc">Threat detection, anomaly detection, response</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🎬</span>
+      <div class="use-title">Entertainment</div>
+      <div class="use-desc">Content creation, recommendations, VFX</div>
+    </div>
+    <div class="use-card">
+      <span class="use-icon">🌍</span>
+      <div class="use-title">Climate</div>
+      <div class="use-desc">Weather prediction, energy optimization, carbon modeling</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-label">06 — how it works</div>
+  <h2 class="section-title">How AI learns</h2>
+  <p class="section-sub">The training pipeline — from raw data to intelligent model.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Data collection</div>
+      <div class="step-desc">Billions of examples — text, images, code — gathered from the internet and curated datasets.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Preprocessing</div>
+      <div class="step-desc">Data is cleaned, tokenized, and formatted. Quality filtering removes noise and harmful content.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Training</div>
+      <div class="step-desc">The model processes data in batches, adjusting billions of parameters to minimize prediction error.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Fine-tuning</div>
+      <div class="step-desc">Human feedback (RLHF) shapes the model to be helpful, harmless, and honest.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-title">Deployment</div>
+      <div class="step-desc">The model is served at scale, handling millions of requests with low latency via APIs.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- FUTURE -->
+<section id="future">
+  <div class="section-label">07 — the future</div>
+  <h2 class="section-title">Where AI is heading</h2>
+  <p class="section-sub">The next decade of AI — breakthroughs, risks, and possibilities.</p>
+  <div class="future-grid">
+    <div class="future-card highlight">
+      <span class="future-badge" style="background:rgba(108,99,255,0.15);color:#9b8dfb">Near future</span>
+      <h3>Artificial General Intelligence (AGI)</h3>
+      <p>AI that can perform any intellectual task a human can. Most experts believe we are within 5–15 years. The implications for science, medicine, and society are profound.</p>
+    </div>
+    <div class="future-card">
+      <span class="future-badge" style="background:rgba(0,212,170,0.1);color:#00d4aa">Emerging now</span>
+      <h3>Multimodal & Embodied AI</h3>
+      <p>AI that sees, hears, speaks, and moves — robots with language understanding, systems that work across all modalities simultaneously.</p>
+    </div>
+    <div class="future-card">
+      <span class="future-badge" style="background:rgba(255,189,46,0.1);color:#ffbd2e">Challenge</span>
+      <h3>AI Safety & Alignment</h3>
+      <p>Ensuring AI systems remain aligned with human values as they grow more capable. A critical research priority for labs like Anthropic, DeepMind, and OpenAI.</p>
+    </div>
+    <div class="future-card">
+      <span class="future-badge" style="background:rgba(255,107,107,0.1);color:#ff6b6b">Long term</span>
+      <h3>AI & Scientific Discovery</h3>
+      <p>AI is already solving protein folding (AlphaFold) and discovering new materials. The next frontier: AI-led breakthroughs in physics, medicine, and mathematics.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with care · <span>ai.universe</span> · Everything about Artificial Intelligence</p>
+</footer>
+
+</body>
+  </html>
